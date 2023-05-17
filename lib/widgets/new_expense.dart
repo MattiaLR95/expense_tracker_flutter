@@ -31,11 +31,29 @@ class _NewExpense extends State<NewExpense> {
     });
   }
 
-  void _submitExpenseData () {
+  void _submitExpenseData() {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
-    if (_titleController.text.trim().isEmpty || amountIsInvalid || _selectedDate == null) {
-      //show error message
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text(
+              'Please make sure a valid title, amount, date and category was entered'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('okay'),
+            ),
+          ],
+        ),
+      );
+      return;
     }
   }
 
@@ -100,7 +118,7 @@ class _NewExpense extends State<NewExpense> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               DropdownButton(
-                value: _selectedCategory,
+                  value: _selectedCategory,
                   items: Category.values
                       .map(
                         (category) => DropdownMenuItem(
@@ -120,7 +138,7 @@ class _NewExpense extends State<NewExpense> {
                       _selectedCategory = value;
                     });
                   }),
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
               ElevatedButton(
                 onPressed: _submitExpenseData,
                 child: const Text('Save Expense'),
