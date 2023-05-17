@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -12,6 +13,22 @@ class NewExpense extends StatefulWidget {
 class _NewExpense extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _selectedDate;
+
+  void _presentDatePicker() async {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    final lastDate = DateTime(now.year + 1, now.month, now.day);
+    final pickDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+    setState(() {
+      _selectedDate = pickDate;
+    });
+  }
 
   @override
   void dispose() {
@@ -38,16 +55,38 @@ class _NewExpense extends State<NewExpense> {
             keyboardType: TextInputType.name,
             decoration: const InputDecoration(label: Text('Title')),
           ),
-          TextField(
-            controller: _amountController,
-            keyboardType: TextInputType.name,
-            decoration: const InputDecoration(
-              label: Text('Amount'),
-              prefixText: '\$'),
-          ),
-          const SizedBox(height: 10,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      label: Text('Amount'), prefixText: '\$ '),
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)),
+                    IconButton(
+                        onPressed: _presentDatePicker,
+                        icon: const Icon(Icons.calendar_month))
+                  ],
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
                 onPressed: () {},
@@ -57,7 +96,9 @@ class _NewExpense extends State<NewExpense> {
                 padding: EdgeInsets.symmetric(horizontal: 5),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text('Cancel'),
               ),
             ],
