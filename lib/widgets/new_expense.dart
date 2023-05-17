@@ -89,7 +89,7 @@ class _NewExpense extends State<NewExpense> {
             height: 10,
           ),
           Row(
-            // mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               DropdownButton(
                 value: _selectedCategory,
@@ -112,6 +112,7 @@ class _NewExpense extends State<NewExpense> {
                       _selectedCategory = value;
                     });
                   }),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 50)),
               ElevatedButton(
                 onPressed: () {},
                 child: const Text('Save Expense'),
