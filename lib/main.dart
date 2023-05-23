@@ -12,7 +12,7 @@ void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
-  // ]).then((fn) {
+  // ]).then((fn) { ------------------> Blocca la rotazione schermo dell'app
   runApp(
     MaterialApp(
       darkTheme: ThemeData.dark().copyWith(

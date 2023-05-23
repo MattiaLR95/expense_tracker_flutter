@@ -86,7 +86,7 @@ class _NewExpense extends State<NewExpense> {
       height: double.infinity,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(16,48,16,keyboardSpace + 16),
+          padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
           child: Column(
             children: [
               TextField(
@@ -138,7 +138,8 @@ class _NewExpense extends State<NewExpense> {
                               value: category,
                               child: Text(
                                 category.name.toUpperCase(),
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           )
