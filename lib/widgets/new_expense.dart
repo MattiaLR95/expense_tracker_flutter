@@ -94,28 +94,40 @@ class _NewExpense extends State<NewExpense> {
               children: [
                 if (width >= 600)
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: TextField(
                           controller: _titleController,
                           maxLength: 50,
                           keyboardType: TextInputType.name,
-                          decoration: const InputDecoration(label: Text('Title')),
+                          decoration: const InputDecoration(
+                            label: Text('Title'),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 24,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _amountController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                              label: Text('Amount'), prefixText: '\$ '),
                         ),
                       ),
                       const SizedBox(
                         width: 16,
-                      ),
+                      )
                     ],
                   )
                 else
-                  Expanded(
-                    child: TextField(
-                      controller: _titleController,
-                      maxLength: 50,
-                      keyboardType: TextInputType.name,
-                      decoration: const InputDecoration(label: Text('Title')),
-                    ),
+                  TextField(
+                    controller: _titleController,
+                    maxLength: 50,
+                    keyboardType: TextInputType.name,
+                    decoration: const InputDecoration(label: Text('Title')),
                   ),
                 Row(
                   children: [
@@ -126,9 +138,6 @@ class _NewExpense extends State<NewExpense> {
                         decoration: const InputDecoration(
                             label: Text('Amount'), prefixText: '\$ '),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 16,
                     ),
                     Expanded(
                       child: Row(
